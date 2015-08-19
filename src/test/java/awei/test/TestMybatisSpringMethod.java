@@ -1,13 +1,15 @@
 package awei.test;
 
-import org.junit.Before;
+import java.util.List;
+
+import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.alibaba.fastjson.JSON;
 
 import awei.model.User;
 import awei.service.UserServiceI;
@@ -18,6 +20,8 @@ import awei.service.UserServiceI;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring.xml","classpath:spring-mybatis.xml"})
 public class TestMybatisSpringMethod {
+	private static final Logger logger = Logger.getLogger(TestMybatisSpringMethod.class);
+	
 	private UserServiceI userServiceI;
 
 	public UserServiceI getUserServiceI() {
@@ -30,10 +34,21 @@ public class TestMybatisSpringMethod {
 	}
 
 
+	/**
+	 * 测试用日志打成字符串，比较清晰
+	 */
 	@Test
-	public void test() {
+	public void getUserByIdTest() {
 		User user = userServiceI.getUserById("1");
-		System.out.println("-------->>>>>>>>>--------awei-------->>>>>>>>>>>-------------"+user);
+		logger.info("-------->>>>>>>>>--------awei-------->>>>>>>>>>>-------------"+user);
+		logger.info("-------->>>>>>>>>--------awei-------->>>>>>>>>>>-------------"+JSON.toJSONStringWithDateFormat(user, "yyyy-MM-dd HH:mm:ss"));
 	}
 	
+	
+	@Test
+	public void getAllTest() {
+		List<User> list = userServiceI.getAll();
+		logger.info("-------->>>>>>>>>--------awei-------->>>>>>>>>>>-------------"+list);
+		logger.info("-------->>>>>>>>>--------awei-------->>>>>>>>>>>-------------"+JSON.toJSONStringWithDateFormat(list, "yyyy-MM-dd HH:mm:ss"));
+	}
 }

@@ -1,9 +1,20 @@
 package awei.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class User {
-    private String id;
+	private List<UserRole> userRoles;
+	
+	public List<UserRole> getUserRoles() {
+		return userRoles;
+	}
+
+	public void setUserRoles(List<UserRole> userRoles) {
+		this.userRoles = userRoles;
+	}
+
+	private String id;
 
     private Date cheatedatetime;
 
@@ -73,13 +84,5 @@ public class User {
         this.updateTime = updateTime;
     }
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", cheatedatetime=" + cheatedatetime + ", modifydatetime=" + modifydatetime + ", name=" + name + ", pwd=" + pwd + ", createTime=" + createTime + ", updateTime=" + updateTime + "]";
-	}
-    
     
 }

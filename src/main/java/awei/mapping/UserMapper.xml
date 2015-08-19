@@ -114,4 +114,24 @@
       UPDATE_TIME = #{updateTime,jdbcType=DATE}
     where ID = #{id,jdbcType=VARCHAR}
   </update>
+
+
+
+	<select id="selectUserRole" parameterType="java.lang.String" resultType="awei.model.UserRole">
+		SELECT
+		tuser_trole.ID,
+		tuser_trole.ROLE_ID,
+		tuser_trole.USER_ID
+		FROM
+		tuser_trole
+		WHERE tuser_trole.USER_ID=#{ID,jdbcType=VARCHAR} 
+	</select>
+  
+  <resultMap type="awei.model.User" id="UserResultMap" extends="BaseResultMap">
+  	<collection property="userRoles" column="ID" javaType="list" select="selectUserRole"/>
+  </resultMap>
+  
+  <select id="getAll" resultMap="BaseResultMap">
+  	select ID, CHEATEDATETIME, MODIFYDATETIME, NAME, PWD, CREATE_TIME, UPDATE_TIME from tuser
+  </select>
 </mapper>
